@@ -1,0 +1,136 @@
+body{
+    background-color: rgb(173, 173, 173);
+    text-align: center;
+}
+h1{
+font-size: 15vh
+}
+#spantitle{
+    color: orange;
+    text-shadow: 5px 5px  5px black ;
+}
+button{
+    width: 20vh;
+    height: 10vh;
+    font-size: 3vh;
+    box-shadow: 5px 5px 0px orange;
+}
+button:hover{
+    background-color: orange;
+    box-shadow: 5px 5px 0px white;
+}
+.squarescontainer{
+    width:70vh;
+    height:75vh;
+    margin: auto;
+}
+.square{
+    background-color: white;
+    width: 10vh;
+    height: 10vh;
+    position: absolute;
+    border-radius: 3vh;
+    border: 2px black solid;
+    font-size: 7vh;
+
+}
+.selected{
+    scale: 1.1 1.1;
+    border-color: red;
+}
+@keyframes good{
+50%{height:0vh;}
+100%{height:10vh;background-color: lightgreen;}
+}
+@keyframes almost{
+50%{height:0vh;}
+100%{height:10vh;background-color: yellow;}
+}
+@keyframes bad{
+50%{height:0vh;}
+100%{height:10vh;background-color: lightgray;}
+}
+.good{
+    animation: good 0.5s;
+    background-color: lightgreen;
+}
+.almost{
+    animation: almost 0.5s;
+    background-color: yellow;
+}
+.bad{
+    animation: bad 0.5s;
+    background-color: lightgray;
+}
+#resultbar{
+    margin: auto;
+    width: 35vw;
+    height: 85vh;
+    background-color: whitesmoke;
+    border: 5px solid black;
+    border-radius: 5vh;
+    position:absolute;
+    left: 32.5vw;
+    top: 10vh;
+    animation: resultbardown 1.5s linear;
+}
+@keyframes resultbardown{
+    from{top: -70vh;}
+    to{top: 10vh;}
+}
+#resultvaluescontainer{
+    margin-top: 3vh;
+}
+.resultvalues{
+    font-size: 3vh;
+    margin-left: 1vw; 
+    float: left;
+    color: orange;
+    text-shadow: 1px 1px 1px black;
+}
+.resultnames{
+    font-size: 2vh;
+    margin-right: 1vw; 
+    float: left;
+    margin-left: 2vw;
+    margin-top: 1vh;
+}
+#wingraphic{
+    text-align: left;
+    margin-top: 0vh;
+}
+.graphic{
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+    margin-left: 1vh;
+    
+}
+.bargraphic{
+width: 20vh;
+height: 3vh;
+margin-left: 2vw;
+background-color: gray;
+color: white;
+}
+#theword{
+position: absolute;
+font-size: 5vh;
+transform: rotateZ(340deg);
+border-bottom: 3vh double orangered;
+top: 25vh;
+left: 21vw;
+}
+#backbutton{
+    width: 15vh;
+    height: 7.5vh;
+    font-size: 3vh;
+    position: absolute;
+    right: 2vw;
+    bottom: 3vh;
+}
+#dailybtn{
+    transform: translateX(-5vh);
+}
+#practicebtn{
+    transform: translateX(5vh);
+}
