@@ -1,4 +1,3 @@
-alert("h")
 const todaysword=getodaysword()
 async function getodaysword(){
     let date=new Date()
