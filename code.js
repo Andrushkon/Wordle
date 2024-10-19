@@ -1,5 +1,5 @@
-const todaysword=getodaysword()
 alert("h")
+const todaysword=getodaysword()
 async function getodaysword(){
     let date=new Date()
     let month=date.getMonth()+1
