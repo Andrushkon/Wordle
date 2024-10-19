@@ -2,13 +2,12 @@ const todaysword=getodaysword()
 
 async function getodaysword(){
     let date=new Date()
-    let day=date.getDate()
     let month=date.getMonth()+1
     let year=date.getFullYear()
     let url=`https://www.nytimes.com/svc/wordle/v2/${year}-${month}-${day}.json`
     
         try {
-          const response = await fetch("url");
+          const response = await fetch(url);
           if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
           }
