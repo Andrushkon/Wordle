@@ -1,6 +1,5 @@
-const todaysword=getodaysword()
-async function getodaysword(){
-    let date=new Date()
+const todaysword=async function (){
+   let date=new Date()
     let month=date.getMonth()+1
     let year=date.getFullYear()
     let url=`https://www.nytimes.com/svc/wordle/v2/${year}-${month}-${day}.json`
@@ -11,12 +10,12 @@ async function getodaysword(){
             throw new Error(`Response status: ${response.status}`);
           }
           const json = await response.json();
+          alert(json)
           return json.word
-        } catch (error) {
+                } catch (error) {
           alert(error.message);
         }
-      
-    }
+}
 const menu=document.getElementById("menu")
 const game=document.getElementById("game")
 const results=document.getElementById("result")
