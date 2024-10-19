@@ -5,7 +5,7 @@ async function getodaysword(){
     let month=date.getMonth()+1
     let year=date.getFullYear()
     let url=`https://www.nytimes.com/svc/wordle/v2/${year}-${month}-${day}.json`
-    
+    alert(url)
         try {
           const response = await fetch(url);
           if (!response.ok) {
