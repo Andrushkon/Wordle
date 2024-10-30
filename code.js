@@ -329,7 +329,7 @@ results.innerHTML=`
 `
 for (let index = 0; index < 6; index++) {
     let mybar=document.getElementById("g"+(index+1))
-    mybar.style.width=(roundwins[index]+(roundwins[index]==0)*games.length/50)/games.length*20+"vw"
+    mybar.style.width=(roundwins[index]+(roundwins[index]==0)*games.length/25)/games.length*20+"vw"
     if (round==index+1){
         mybar.style.backgroundColor="orange"
     }
