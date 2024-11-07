@@ -47,10 +47,13 @@ if (daily){
 }else{
 word=listofwords[Math.floor(Math.random()*listofwords.length)].toUpperCase()
 }
+
+let keys=[]
 setup()
 function setup(){
 menu.innerHTML=``
 createSquares()
+createKeyboard()
 function createSquares(){
 let squarescontainer=document.createElement("div")
 squarescontainer=game.appendChild(squarescontainer)
@@ -60,7 +63,7 @@ for (let index = 0; index < 30; index++) {
     let newSquare=document.createElement("div")
     newSquare=squarescontainer.appendChild(newSquare)
     newSquare.className="square"
-    newSquare.style.left=(index%5)*6+35.5+"vw"
+    newSquare.style.left=(index%5)*6+15+"vw"
     newSquare.style.top=(Math.floor(index/5))*12+3+"vh";
     if (index==0){
         newSquare.classList.add("selected")
@@ -69,30 +72,65 @@ for (let index = 0; index < 30; index++) {
     
 }
 }
+function createKeyboard(){
+let keyboard=document.createElement("div")
+keyboard=game.appendChild(keyboard)
+keyboard.id="keyboard"
+const chart=["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","Backspace","z","x","c","v","b","n","m","Enter"]
+let group=0
+let idx=0
+for (let index = 0; index < chart.length; index++) {
+    let newSquare=document.createElement("div")
+    newSquare=keyboard.appendChild(newSquare)
+    newSquare.className="keyspace normal"
+    if (index==19||index==chart.length-1){
+    newSquare.classList.add(chart[index])
+    }else{
+    newSquare.innerText=chart[index].toUpperCase()
+    }
+    newSquare.onclick=function(){writealetter(chart[index].toUpperCase())}
+    newSquare.style.left=4*idx+"vw"
+    newSquare.style.top=group*10+"vh"
+    if (index==9||index==18){
+        group++
+        idx=0
+    }else{
+        idx++
+    }
+    keys.push(newSquare)
 }
+
+}
+}
+
 document.addEventListener("keydown",function(){
     if (home==false){
     let key=event.key
     key=key.toUpperCase()
-    if (key=="BACKSPACE"){
-        if (squares[selectedsquare-1]!==undefined&&selectedsquare-1>(round-1)*5-1){
-        selectedsquare--
-        squares[selectedsquare].innerText=""
-        squares[selectedsquare+1].classList.remove("selected")
-        squares[selectedsquare].classList.add("selected")
+    writealetter(key)
+    }})
+
+    function writealetter(key){
+        if (key=="BACKSPACE"){
+            if (squares[selectedsquare-1]!==undefined&&selectedsquare-1>(round-1)*5-1){
+            selectedsquare--
+            squares[selectedsquare].innerText=""
+            squares[selectedsquare+1].classList.remove("selected")
+            squares[selectedsquare].classList.add("selected")
+            }
+        }else if(key=="ENTER"&&round*5==selectedsquare){
+        home=true
+        checkWord()
+        }else{
+        if (isaLetter(key)&&round*5!==selectedsquare){
+        squares[selectedsquare].innerText=key
+        if (round*5-1!==selectedsquare){
+        squares[selectedsquare].classList.remove("selected")
+        squares[selectedsquare+1].classList.add("selected")
         }
-    }else if(key=="ENTER"&&round*5==selectedsquare){
-    home=true
-    checkWord()
-    }else{
-    if (isaLetter(key)&&round*5!==selectedsquare){
-    squares[selectedsquare].innerText=key
-    if (round*5-1!==selectedsquare){
-    squares[selectedsquare].classList.remove("selected")
-    squares[selectedsquare+1].classList.add("selected")
+        selectedsquare++
+        }}
     }
-    selectedsquare++
-    }}}})
     function isaLetter(letter){
         let chart="abcdefghijklmnopqrstuvwxyz"
         chart=chart.toUpperCase()
@@ -112,7 +150,6 @@ function getWord(){
     let myword=""
     for (let index = 0; index < 5; index++) {
         myword=myword+squares[(round-1)*5+index].innerText
-        
     }
     return myword
 }
@@ -152,6 +189,12 @@ Validateword(getWord())
             let letter=squares[(round-1)*5+index].innerText
             if (letter==word.charAt(index)){
                 squares[(round-1)*5+index].classList.add("good")
+                for (let i = 0; i < keys.length; i++) {
+                    if (keys[i].innerText==letter){
+                        keys[i].classList.replace("normal","good")
+                    }
+                    
+                }
                 repeatedletters.push(letter)
             }
         }
@@ -162,8 +205,18 @@ Validateword(getWord())
             if (letter!==word.charAt(index)){
             if (checkforcontaining(letter)){
                 squares[(round-1)*5+index].classList.add("almost")
+                for (let i = 0; i < keys.length; i++) {
+                if (keys[i].innerText==letter){
+                    keys[i].classList.replace("normal","almost")
+                }
+                }
             }else{
                 squares[(round-1)*5+index].classList.add("bad")
+                for (let i = 0; i < keys.length; i++) {
+                    if (keys[i].innerText==letter){
+                        keys[i].classList.replace("normal","bad")
+                    }
+                    }
             }
         }
         }
@@ -197,7 +250,12 @@ Validateword(getWord())
 }
 }
 function ShowResults(word,round){
-
+document.removeEventListener("keydown",function(){
+    if (home==false){
+    let key=event.key
+    key=key.toUpperCase()
+    writealetter(key)
+    }})
 let games=localStorage.getItem("games")
 if (games!==null){
 games=games.split(",")
@@ -336,7 +394,7 @@ for (let index = 0; index < 6; index++) {
 
 }
 document.getElementById("backbutton").onclick=function(){
-createMenu()  
+createMenu()
 }
 
 function getcurrentedate(){
